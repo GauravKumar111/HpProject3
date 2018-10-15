@@ -1,0 +1,36 @@
+<project name="Salesforce" default="deployEmptyCheckOnly" basedir="." xmlns:sf="antlib:com.salesforce">    
+
+  <taskdef uri="antlib:com.salesforce"
+        resource="com/salesforce/antlib.xml"
+        classpath="${basedir}/lib/ant-salesforce.jar"/>
+
+    <property file="build.properties"/>
+    <property environment="env"/>  
+
+    <!-- Shows deploying code & running tests for code in directory -->
+    <target name="deployCode">
+      <echo level="info">Performing the deploy</echo>
+      <sf:deploy
+        username="${sf.username}"
+        password="${sf.password}"
+        serverurl="${sf.serverurl}"
+		    testlevel="RunLocalTests"
+        deployRoot="temp/unpackaged"
+        logType="Detail"
+        />
+    </target> 
+
+    <target name="deployEmptyCheckOnly">
+      <echo level="info">Testing the deploy</echo>
+      <sf:deploy
+          checkOnly="true"
+          username="${sf.username}"
+          password="${sf.password}"
+          serverurl="${sf.serverurl}"
+          deployRoot="temp/unpackaged"           
+          testlevel="RunLocalTests"
+          logType="Detail"
+          />
+    </target>
+
+</project>
